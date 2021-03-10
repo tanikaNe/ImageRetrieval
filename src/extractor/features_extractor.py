@@ -12,7 +12,7 @@ Created: 06.03.2021
 
 class FeatureExtractor:
 
-    def __init(self):
+    def __init__(self):
         model = VGG16(weights='imagenet', include_top=True)
         # specify fc7 as the output layer
         self.output_model = Model(inputs=model.input, outputs=model.get_layer('fc2').output)
@@ -25,7 +25,7 @@ class FeatureExtractor:
     def extract_features(self, image_path):
         """
         :param image_path: path to the image
-        :return: vector with features
+        :return: vector with features'/media/taika/Data1/Pictures/coil-100'
         """
         img = self.load_image(image_path)
         img_features = image.img_to_array(img)
