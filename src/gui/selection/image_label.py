@@ -11,5 +11,5 @@ class ImageLabel(QLabel):
         self.setText('Drop Image Here')
 
     def setPixmap(self, image):
-        size = 900
+        size = 400
         super().setPixmap(image.scaled(size, size, Qt.KeepAspectRatio, Qt.SmoothTransformation))

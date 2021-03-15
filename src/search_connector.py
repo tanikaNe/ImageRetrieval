@@ -4,7 +4,7 @@ from extractor.features_extractor import FeatureExtractor
 from matcher.kd_tree_matcher import KDTreeMatcher
 
 
-class Main:
+class SearchConnector:
     def __init__(self, dataset_path):
         self.dataset_path = dataset_path
         self.features_extractor = FeatureExtractor()
@@ -47,9 +47,10 @@ class Main:
         return open(self.dataset_path + database, 'rb')
 
 
+# for debugging
 if __name__ == '__main__':
     # main = Main('/media/taika/Data1/Pictures/Japan/Japan')
-    main = Main('/media/taika/Data1/Pictures/coil-100')
+    main = SearchConnector('/media/taika/Data1/Pictures/coil-100')
     query_image = input("Enter name of the image you want to match: ")
     # print(main.find_images('/media/taika/Data1/Pictures/Japan/Japan/' + query_image))
     print(main.find_images('/media/taika/Data1/Pictures/coil-100/' + query_image))

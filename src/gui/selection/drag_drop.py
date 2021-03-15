@@ -1,16 +1,19 @@
-import sys
 from PyQt5.QtGui import QPixmap
-from image_label import ImageLabel
+from gui.selection.image_label import ImageLabel
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
 
 class DragAndDrop(QWidget):
-    def __init__(self):
+    def __init__(self, connector):
         size = 900
         super().__init__()
+        # self.file_path = None
+        self.connector = connector
         self.resize(size, size)
         self.setAcceptDrops(True)
+        # button = self.QPushButton(self)
+        # button.setText("Confirm")
 
         main_layout = QVBoxLayout()
 
@@ -35,15 +38,10 @@ class DragAndDrop(QWidget):
             event.setDropAction(Qt.CopyAction)
             file_path = event.mimeData().urls()[0].toLocalFile()
             self.set_image(file_path)
+            print(self.connector.find_images(file_path))
             event.accept()
         else:
             event.ignore()
 
     def set_image(self, file_path):
         self.photo_viewer.setPixmap(QPixmap(file_path))
-
-
-app = QApplication(sys.argv)
-drag_n_drop = DragAndDrop()
-drag_n_drop.show()
-sys.exit(app.exec_())

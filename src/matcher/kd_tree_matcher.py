@@ -1,6 +1,6 @@
 from sklearn.neighbors import KDTree
 
-
+#TODO move functionality from constructor to dedicated method
 class KDTreeMatcher:
 
     def __init__(self, dataset):
