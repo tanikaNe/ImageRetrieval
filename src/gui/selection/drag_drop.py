@@ -9,6 +9,7 @@ class DragAndDrop(QWidget):
         super().__init__()
         self.file_path = None
         self.connector = connector
+        self.button = self.create_button()
         self.photo_viewer = ImageLabel()
         self.create_widget()
 
@@ -16,10 +17,8 @@ class DragAndDrop(QWidget):
         main_layout = QVBoxLayout()
         self.setGeometry(200, 200, 300, 300)
         self.setAcceptDrops(True)
-        button = self.create_button()
-
         main_layout.addWidget(self.photo_viewer)
-        main_layout.addWidget(button)
+        main_layout.addWidget(self.button)
         self.setLayout(main_layout)
 
     def dragEnterEvent(self, event):
@@ -40,6 +39,7 @@ class DragAndDrop(QWidget):
             file_path = event.mimeData().urls()[0].toLocalFile()
             self.file_path = file_path
             self.set_image(file_path)
+            self.button.setEnabled(True)
             event.accept()
         else:
             event.ignore()
@@ -51,6 +51,7 @@ class DragAndDrop(QWidget):
         button = QPushButton(self)
         button.setText("Confirm")
         button.clicked.connect(self.clicked)
+        button.setEnabled(False)
         return button
 
     def clicked(self):
