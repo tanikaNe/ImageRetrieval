@@ -2,6 +2,7 @@ import os
 import _pickle as pickle
 from extractor.features_extractor import FeatureExtractor
 from matcher.kd_tree_matcher import KDTreeMatcher
+from gui.results.results_list import ResultsList
 
 
 class SearchConnector:
@@ -16,8 +17,7 @@ class SearchConnector:
             features_tuples = self.__load_features()
         except (FileNotFoundError, EOFError):
             print("Dataset analysis in progress. Please wait.")
-            # file = open(self.dataset_path + '/vectors.pck', 'wb')
-            file = self.open_file('/vectors.pck')
+            file = open(self.dataset_path + '/vectors.pck', 'wb')
             for img in dataset:
                 if img.endswith('.jpg') or img.endswith('.png'):
                     print("Analyzing: %s" % img)
@@ -34,11 +34,11 @@ class SearchConnector:
         self.matcher = KDTreeMatcher(dataset=features_tuples)
 
     def find_images(self, image_path):
-        return self.matcher.find_neighbours(vectors=self.features_extractor.extract_features(image_path))
+        images_list = self.matcher.find_neighbours(vectors=self.features_extractor.extract_features(image_path))
+        ResultsList(images_list)
 
     def __load_features(self):
-        # file = open(self.dataset_path + '/vectors.pck', 'rb')
-        file = self.open_file('/vectors.pck')
+        file = open(self.dataset_path + '/vectors.pck', 'rb')
         load = pickle.load(file)
         file.close()
         return load

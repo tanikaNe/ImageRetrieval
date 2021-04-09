@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QFrame
 
 
+
 class DragAndDrop(QWidget):
     def __init__(self, connector):
         super().__init__()
@@ -56,4 +57,5 @@ class DragAndDrop(QWidget):
 
     def clicked(self):
         # TODO print images in gui list
+
         print(self.connector.find_images(self.file_path))
