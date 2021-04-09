@@ -35,7 +35,7 @@ class SearchConnector:
 
     def find_images(self, image_path):
         images_list = self.matcher.find_neighbours(vectors=self.features_extractor.extract_features(image_path))
-        ResultsList(images_list)
+        return ResultsList(images_list)
 
     def __load_features(self):
         file = open(self.dataset_path + '/vectors.pck', 'rb')
