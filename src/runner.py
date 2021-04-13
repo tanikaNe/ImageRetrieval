@@ -11,8 +11,6 @@ class Runner:
         app = QApplication(sys.argv)
         main_window = MainWindow(self.connector)
         main_window.show()
-        #drag_n_drop = DragAndDrop(self.connector)
-        #drag_n_drop.show()
         sys.exit(app.exec_())
 
 

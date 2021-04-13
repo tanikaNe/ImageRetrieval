@@ -14,7 +14,7 @@ class KDTreeMatcher:
         :param vectors: vectors to be matched
         :return: list with matched images' names
         """
-        dist, index = self.tree.query([vectors], k=10)
+        dist, index = self.tree.query([vectors], k=70)
         index = index[0]
         return list(map(self.__map_index, index))
 

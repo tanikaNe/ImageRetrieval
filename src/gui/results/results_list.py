@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel, QScrollBa
 class ResultsList(QWidget):
     def __init__(self, images):
         super().__init__()
-        self.vbox = QVBoxLayout()
+
         self.initUI(images)
 
     def initUI(self, images):
@@ -33,6 +33,9 @@ class ResultsList(QWidget):
 
             print(results_list_layout)
 
+        label = QLabel()
+        label.setText("Results")
+        label.setAlignment(Qt.AlignCenter)
         list_widget = QWidget()
         list_widget.setLayout(results_list_layout)
         scroll = QScrollArea()
@@ -40,5 +43,6 @@ class ResultsList(QWidget):
         scroll.setWidgetResizable(True)
 
         layout = QVBoxLayout(self)
+        layout.addWidget(label)
         layout.addWidget(scroll)
         self.setLayout(layout)
