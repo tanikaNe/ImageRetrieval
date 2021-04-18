@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QDesktopWidget, QLabel
+from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QDesktopWidget, QLabel
 
-from src.gui.results.results_list import ResultsList
 from src.gui.selection.drag_drop import DragAndDrop
 
 

@@ -3,6 +3,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .image_label import ImageLabel
+from ..directories_list import DirectoriesList
 
 
 class DragAndDrop(QWidget):
@@ -11,6 +12,7 @@ class DragAndDrop(QWidget):
         self.file_path = None
         self.connector = connector
         self.button = self.create_button()
+        self.directory_button= self.__create_directory_button()
         self.photo_viewer = ImageLabel()
         self.create_widget()
         self.observer = observer
@@ -20,7 +22,7 @@ class DragAndDrop(QWidget):
         self.setAcceptDrops(True)
         main_layout.addWidget(self.photo_viewer)
         main_layout.addWidget(self.button)
-        # self.setAlignment(Qt.AlignRight)
+        main_layout.addWidget(self.directory_button)
         self.setLayout(main_layout)
 
     def dragEnterEvent(self, event):
@@ -54,6 +56,12 @@ class DragAndDrop(QWidget):
         button.setText("Confirm")
         button.clicked.connect(self.clicked)
         button.setEnabled(False)
+        return button
+
+    def __create_directory_button(self):
+        button = QPushButton(parent=self, text="Directories")
+        button.clicked.connect(lambda _: DirectoriesList(self.connector, self))
+        button.setEnabled(True)
         return button
 
     def clicked(self):

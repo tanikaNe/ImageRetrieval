@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 vectors.pck
+
+*.ww
