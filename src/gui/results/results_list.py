@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel, QScrollBar, QListWidget, QGroupBox, QGridLayout, \
-    QListWidgetItem, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel, QGridLayout
+
+from src.gui.results.result_element import ResultElement
 
 
 class ResultsList(QWidget):
@@ -11,30 +11,20 @@ class ResultsList(QWidget):
         self.initUI(images)
 
     def initUI(self, images):
-        size = 100
         row_index = 0
         column_index = 0
         results_list_layout = QGridLayout()
         if images:
             for img in images:
-                image_label = QLabel(self)
-                image_label.setPixmap(QPixmap(img).scaled(size, size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-                image_widget = QWidget()
-                image_layout = QHBoxLayout()
-                image_layout.setAlignment(Qt.AlignCenter)
-                image_layout.addWidget(image_label)
-                image_widget.setLayout(image_layout)
-                results_list_layout.addWidget(image_widget, row_index, column_index)
+                results_list_layout.addWidget(ResultElement(img, self), row_index, column_index)
 
                 column_index += 1
                 if column_index == 2:
                     column_index = 0
                     row_index += 1
 
-            print(results_list_layout)
-
         label = QLabel()
-        label.setText("Results")
+        label.setText("Results\nClick on the picture to open it")
         label.setAlignment(Qt.AlignCenter)
         list_widget = QWidget()
         list_widget.setLayout(results_list_layout)

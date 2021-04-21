@@ -12,7 +12,7 @@ class DragAndDrop(QWidget):
         self.file_path = None
         self.connector = connector
         self.button = self.create_button()
-        self.directory_button= self.__create_directory_button()
+        self.directory_button = self.__create_directory_button()
         self.photo_viewer = ImageLabel()
         self.create_widget()
         self.observer = observer

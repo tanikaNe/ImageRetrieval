@@ -1,6 +1,7 @@
 from sklearn.neighbors import KDTree
 
-#TODO move functionality from constructor to dedicated method
+
+# TODO move functionality from constructor to dedicated method
 class KDTreeMatcher:
 
     def __init__(self, dataset):
@@ -9,14 +10,17 @@ class KDTreeMatcher:
         # vectors are of size 4096
         self.tree = KDTree(list(map(lambda val: val[1], dataset)), leaf_size=4096)
 
-    def find_neighbours(self, vectors):
+    def find_neighbours(self, vectors, dist_wage=60):
         """
         :param vectors: vectors to be matched
+        :param dist_wage: minimal euclidean to accept
         :return: list with matched images' names
         """
         dist, index = self.tree.query([vectors], k=70)
+
         index = index[0]
-        return list(map(self.__map_index, index))
+        dist = dist[0]
+        return list(map(self.__map_index, self.__filter_by_dist(dist, index, dist_wage)))
 
     def __map_index(self, index):
         """
@@ -24,3 +28,10 @@ class KDTreeMatcher:
         :return: name of the file
         """
         return self.dataset[index][0]
+
+    def __filter_by_dist(self, dist, indexes, min_dist):
+        accepted = []
+        for i in range(len(dist)):
+            if dist[i] < min_dist:
+                accepted.append(indexes[i])
+        return accepted
