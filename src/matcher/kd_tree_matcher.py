@@ -10,7 +10,7 @@ class KDTreeMatcher:
         # vectors are of size 4096
         self.tree = KDTree(list(map(lambda val: val[1], dataset)), leaf_size=4096)
 
-    def find_neighbours(self, vectors, dist_wage=1.2):
+    def find_neighbours(self, vectors, dist_wage=1):
         """
         :param vectors: vectors to be matched
         :param dist_wage: minimal euclidean to accept
@@ -31,7 +31,7 @@ class KDTreeMatcher:
 
     def __filter_by_dist(self, dist, indexes, dist_wage):
         accepted = []
-        min_dist = max(dist) * 0.7 * dist_wage
+        min_dist = dist[1] * 1.2 * dist_wage
 
         for i in range(len(dist)):
             if dist[i] < min_dist:
