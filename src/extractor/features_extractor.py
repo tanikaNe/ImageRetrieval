@@ -14,7 +14,7 @@ class FeatureExtractor:
 
     def __init__(self):
         model = VGG16(weights='imagenet', include_top=True)
-        # specify fc7 as the output layer
+        # specify fc2 as the output layer
         self.output_model = Model(inputs=model.input, outputs=model.get_layer('fc2').output)
 
     @staticmethod

@@ -47,8 +47,10 @@ class SearchConnector(QObject):
         all_length = len(dataset)
 
         for img in dataset:
-            if (img.endswith('.jpg') or img.endswith('.png')) and not self.file_already_processed(self.features_tuples,
-                                                                                                  img):
+            img_name = img.lower()
+            if (img_name.endswith('.jpg') or img_name.endswith('.png')) and not self.file_already_processed(
+                    self.features_tuples, img):
+
                 print("Analyzing: %s" % img)
                 try:
                     img_features = (img, self.features_extractor.extract_features(img))
@@ -67,6 +69,7 @@ class SearchConnector(QObject):
 
     def remove_directory(self, directory):
         self.features_tuples = [x for x in self.features_tuples if not x[0].startswith(directory)]
+        self.matcher = KDTreeMatcher(dataset=self.features_tuples)
 
     def find_images(self, image_path):
         images_list = self.matcher.find_neighbours(vectors=self.features_extractor.extract_features(image_path))
@@ -83,11 +86,3 @@ class SearchConnector(QObject):
         file.close()
         return load
 
-
-# for debugging
-if __name__ == '__main__':
-    # main = Main('/media/taika/Data1/Pictures/Japan/Japan')
-    main = SearchConnector('/media/taika/Data1/Pictures/coil-100')
-    query_image = input("Enter name of the image you want to match: ")
-    # print(main.find_images('/media/taika/Data1/Pictures/Japan/Japan/' + query_image))
-    print(main.find_images('/media/taika/Data1/Pictures/coil-100/' + query_image))
