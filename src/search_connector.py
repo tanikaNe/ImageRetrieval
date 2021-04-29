@@ -48,8 +48,8 @@ class SearchConnector(QObject):
 
         for img in dataset:
             img_name = img.lower()
-            if (img_name.endswith('.jpg') or img_name.endswith('.png')) and not self.file_already_processed(
-                    self.features_tuples, img):
+            if (img_name.endswith('.jpg') or img_name.endswith('.png') or img_name.endswith(
+                    '.jpeg')) and not self.file_already_processed(self.features_tuples, img):
 
                 print("Analyzing: %s" % img)
                 try:

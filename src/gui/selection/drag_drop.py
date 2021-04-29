@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton
 
 from .image_label import ImageLabel
 from ..directories_list import DirectoriesList
+import exifread
 
 
 class DragAndDrop(QWidget):
@@ -49,6 +50,19 @@ class DragAndDrop(QWidget):
             event.ignore()
 
     def set_image(self, file_path):
+        if file_path.endswith(".jpg"):
+            file = open(file_path, 'rb')
+            image_data = exifread.process_file(file)
+
+            rotate = image_data['Image Orientation']
+            # for tag in image_data:
+            #     print(tag, image_data[tag])
+            #     if tag == 'Image Orientation' and image_data[tag] == 'Rotated 90 CW':
+            if str(rotate) == 'Rotated 90 CW':
+                self.photo_viewer.image_format('rotated')
+            else:
+                self.photo_viewer.image_format('')
+
         self.photo_viewer.setPixmap(QPixmap(file_path))
 
     def create_button(self):
