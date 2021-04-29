@@ -7,6 +7,12 @@ from search_connector import SearchConnector
 
 
 class Runner:
+    """
+    Class that starts the software by creating MainWindow
+    Author: Weronika Wolska
+    Created: 01.04.2021
+    """
+
     def __init__(self):
         app = QApplication(sys.argv)
         self.connector = SearchConnector()

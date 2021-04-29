@@ -9,6 +9,12 @@ from matcher.kd_tree_matcher import KDTreeMatcher
 
 
 class SearchConnector(QObject):
+    """
+    Class connecting Feature extractor with KD Tree matcher. Create and removes any saved pickle files.
+    Author: Weronika Wolska
+    Created: 08.03.2021
+    """
+
     process_finished = pyqtSignal(object)
     progress = pyqtSignal(float)
 
@@ -36,10 +42,18 @@ class SearchConnector(QObject):
         self.matcher = KDTreeMatcher(dataset=self.features_tuples)
 
     def process_directory(self, dataset_path):
+        """
+        Process the directory with images
+        :param dataset_path: path to the directory
+        """
         self.dataset_path = dataset_path
         self.thread.start()
 
     def process_directory_sync(self, dataset_path):
+        """
+        Find and analyse images from the given path
+        :param dataset_path: vectors to be matched
+        """
         dataset = [os.path.join(dataset_path, pkl) for pkl in sorted(os.listdir(dataset_path))]
         # save image name and its features
         print("Dataset analysis in progress. Please wait.")
@@ -68,21 +82,39 @@ class SearchConnector(QObject):
         self.process_finished.emit('finished')
 
     def remove_directory(self, directory):
+        """
+        Remove directory from search
+        :param vectors: vectors to be matched
+        """
         self.features_tuples = [x for x in self.features_tuples if not x[0].startswith(directory)]
         self.matcher = KDTreeMatcher(dataset=self.features_tuples)
 
     def find_images(self, image_path):
+        """
+        Run KD Tree to find results
+        :param image_path: query image
+        :return: list with matched images
+        """
         images_list = self.matcher.find_neighbours(vectors=self.features_extractor.extract_features(image_path))
         return ResultsList(images_list)
 
     @staticmethod
     def file_already_processed(features_tuple, file):
+        """
+        Return only file names from tuples containing vectors
+        :param features_tuple: feature tuples
+        :param file: file to be analysed
+        :return: image paths from tuples
+        """
         return file in [i[0] for i in features_tuple]
 
     @staticmethod
     def __load_features():
+        """
+        Load file with features
+        :return: file with feature vectors
+        """
         file = open('vectors.ww', 'rb')
         load = pickle.load(file)
         file.close()
         return load
-

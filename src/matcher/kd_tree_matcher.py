@@ -2,7 +2,9 @@ from sklearn.neighbors import KDTree
 
 
 class KDTreeMatcher:
-
+    """
+    Creates KD Tree matcher to find resuls
+    """
     def __init__(self, dataset):
         self.dataset = dataset
         # dataset is a tuple with vectors on position [1] which we need to build the tree
@@ -33,6 +35,11 @@ class KDTreeMatcher:
 
     @staticmethod
     def __filter_by_dist(dist, indexes):
+        """
+        :param dist: max distance from the query image
+        :param indexes: indexes of files in dataset
+        return: accepted files within distance
+        """
         accepted = []
         max_dist = 75
 

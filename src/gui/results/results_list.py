@@ -1,10 +1,16 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea, QLabel, QGridLayout
 
-from src.gui.results.result_element import ResultElement
+from gui.results.result_element import ResultElement
 
 
 class ResultsList(QWidget):
+    """
+    Create View with results
+    Author: Weronika Wolska
+    Created: 10.04.2021
+    """
+
     def __init__(self, images):
         super().__init__()
 
@@ -17,12 +23,18 @@ class ResultsList(QWidget):
             results_list_layout = QGridLayout()
             if images:
                 for img in images:
-                    results_list_layout.addWidget(ResultElement(img, self), row_index, column_index)
+                    # check if image exists
+                    try:
+                        open(img, 'rb').close()
 
-                    column_index += 1
-                    if column_index == 2:
-                        column_index = 0
-                        row_index += 1
+                        results_list_layout.addWidget(ResultElement(img, self), row_index, column_index)
+
+                        column_index += 1
+                        if column_index == 2:
+                            column_index = 0
+                            row_index += 1
+                    except FileNotFoundError:
+                        continue
 
             label = QLabel()
             label.setText("Results\nClick on the picture to open it")
