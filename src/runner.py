@@ -1,16 +1,25 @@
 import sys
+
 from PyQt5.QtWidgets import QApplication
-from gui.selection.drag_drop import DragAndDrop
+
+from gui.main_window import MainWindow
 from search_connector import SearchConnector
 
 
 class Runner:
+    """
+    Class that starts the software by creating MainWindow
+    Author: Weronika Wolska
+    Created: 01.04.2021
+    """
+
     def __init__(self):
-        self.connector = SearchConnector("/media/taika/Data1/Pictures/coil-100")
         app = QApplication(sys.argv)
-        drag_n_drop = DragAndDrop(self.connector)
-        drag_n_drop.show()
+        self.connector = SearchConnector()
+        main_window = MainWindow(self.connector)
+        main_window.show()
         sys.exit(app.exec_())
 
 
-Runner()
+if __name__ == '__main__':
+    Runner()
