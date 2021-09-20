@@ -9,6 +9,9 @@
  4. Run the code using command `python src/runner.py`
 
 
+Might need additional dependencies on Windows OS
+
+
 ## Usage
 ### Main Window
  1. drop zone - place to drop a query photo
@@ -24,4 +27,3 @@
  1. preview already indexed directories
  2. remove each of above
  3. add new directory to index
-
