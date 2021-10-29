@@ -27,6 +27,3 @@ Might need additional dependencies on Windows OS
  1. preview already indexed directories
  2. remove each of above
  3. add new directory to index
-
-Full description of the code and instructions for the software's usage can be found in the project report:
-https://docs.google.com/document/d/16x-2bCbAyxF75k2mJO3i7vI4QJQsMw72pgnSEHPZVVU/edit?usp=sharing
